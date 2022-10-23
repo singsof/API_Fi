@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('Asia/Bangkok');
-include_once("./config/connectdb.php");
+include("./config/connectdb.php");
 
 $key = isset($_GET["key"]) ? $_GET["key"] : null;
 
