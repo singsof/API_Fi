@@ -14,7 +14,7 @@ define("DB_DNS_SQLITE", "sqlite:db/sqlite_file");
 class DB
 {
     private static $link = null;
-    private static function getLink()
+    public static function getLink()
     {
         if (self::$link) {
             return self::$link;
