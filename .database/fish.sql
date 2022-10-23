@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 23, 2022 at 04:09 PM
+-- Generation Time: Oct 23, 2022 at 07:10 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.29
 
@@ -39,9 +39,10 @@ CREATE TABLE `esp8266` (
 --
 
 INSERT INTO `esp8266` (`id`, `id_ir`, `pH`, `day`) VALUES
-(2, 4, 6, '2022-10-23 13:29:47'),
-(3, 5, 2, '2022-10-23 13:30:07'),
-(4, 6, 2, '2022-10-23 13:43:07');
+(5, 0, 7, '2022-10-23 16:09:56'),
+(6, 1, 6, '2022-10-23 16:09:56'),
+(7, 0, 2, '2022-10-23 16:11:41'),
+(8, 1, 2, '2022-10-23 16:14:39');
 
 -- --------------------------------------------------------
 
@@ -51,21 +52,16 @@ INSERT INTO `esp8266` (`id`, `id_ir`, `pH`, `day`) VALUES
 
 CREATE TABLE `ir` (
   `id_ir` int(11) NOT NULL,
-  `ir` int(11) NOT NULL,
-  `date_ir` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `ir` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ir`
 --
 
-INSERT INTO `ir` (`id_ir`, `ir`, `date_ir`) VALUES
-(1, 0, '2022-10-23 13:21:24'),
-(2, 0, '2022-10-23 13:25:59'),
-(3, 0, '2022-10-23 13:29:37'),
-(4, 0, '2022-10-23 13:29:47'),
-(5, 0, '2022-10-23 13:30:07'),
-(6, 0, '2022-10-23 13:43:07');
+INSERT INTO `ir` (`id_ir`, `ir`) VALUES
+(0, 'มีอาหาร'),
+(1, 'ไม่มีอาหาร');
 
 --
 -- Indexes for dumped tables
@@ -92,13 +88,13 @@ ALTER TABLE `ir`
 -- AUTO_INCREMENT for table `esp8266`
 --
 ALTER TABLE `esp8266`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `ir`
 --
 ALTER TABLE `ir`
-  MODIFY `id_ir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_ir` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
