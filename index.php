@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+include("./config/connectdb.php");
+?>
 
 <head>
     <!-- Mobile Specific Meta -->
@@ -15,7 +17,7 @@
     <!-- meta character set -->
     <meta charset="UTF-8">
     <!-- Site Title -->
-    <title>ระบบจองสนาม</title>
+    <title>แสดงข้อมูลจากฐานข้อมูล</title>
 
 
     <link rel="stylesheet" href="./bootstrap.css">
@@ -28,7 +30,7 @@
 <body>
 
     <div class="container" style="margin-top: 100px;">
-        <h1>แสดงรายละเอียด จากฐานข้อมูล</h1>
+        <h1>ดึงข้อมูลจากฐานข้อมูล มาแสดงเว็บ</h1>
         <table id="mg_table" class="table  table-borderless " style="width:100%">
             <thead>
                 <tr>
@@ -44,43 +46,42 @@
                 $thaiweek = array("วันอาทิตย์", "วันจันทร์", "วันอังคาร", "วันพุธ", "วันพฤหัส", "วันศุกร์", "วันเสาร์");
                 $thaimonth = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
-                // $sql_search = "SELECT *,
-                //                                     DATE_FORMAT(rt.date_reserv, '%d') as Dd ,
-                //                                     DATE_FORMAT(rt.date_reserv, '%c') as month ,
-                //                                     DATE_FORMAT(rt.date_reserv, '%Y') as year, 
-                //                                     DATE_FORMAT(rt.timeStart_reserv, '%H : %i ') as timeStart_n ,
-                //                                     DATE_FORMAT(rt.timeEnd_reserv, '%H : %i ') as timeEnd_n 
-                //                             FROM `reserv_stadium` as rt INNER JOIN stadium as st ON st.id_stadium  = rt.id_stadium  WHERE rt.id_cm  = '$ID_USER' AND rt.status_reserv = 2;";
-                // $i_r = null;
-                // foreach (DB::query($sql_search, PDO::FETCH_OBJ) as $row) :
-                //     // $date = 'วันที่ '.$row->Dd.' เดือน'.$thaimonth[$row->month-1].' พ.ศ.'.$row->year+543;
-                //     $date = '' . $row->Dd . ' ' . $thaimonth[$row->month - 1] . ' ' . (543 + intval($row->year));;
-                //     $timeStart_reserv = $date . "</br> " . $row->timeStart_n . ' น.';
-                //     $timeEnd_reserv = $date . "</br> " . $row->timeEnd_n . ' น.';
+                $sql_search = "SELECT *,
+                                                    DATE_FORMAT(rt.day, '%d') as Dd ,
+                                                    DATE_FORMAT(rt.day, '%c') as month ,
+                                                    DATE_FORMAT(rt.day, '%Y') as year, 
+                                                    DATE_FORMAT(rt.day, '%H : %i ') as time
+                                            FROM `esp8266` as rt ;";
+                $i_r = 1;
+                foreach (DB::query($sql_search, PDO::FETCH_OBJ) as $row) :
+                    // $date = 'วันที่ '.$row->Dd.' เดือน'.$thaimonth[$row->month-1].' พ.ศ.'.$row->year+543;
+                    $date = '' . $row->Dd . ' ' . $thaimonth[$row->month - 1] . ' ' . (543 + intval($row->year));;
+                    $timeStart_reserv = $date . "</br> " . $row->time . ' น.';
                 ?>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                </tr>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                </tr>
-                <tr>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                    <td class="text-center">1</td>
-                </tr>
-                
-                <?php //endforeach; 
+                    <tr>
+                        <td class="text-center"><?php echo $i_r++ ?></td>
+                        <td class="text-center">PH<?php echo $row->id ?></td>
+                        <td class="text-center"><?php echo $row->ir == 0 ? "เติมอาหารแล้ว" : "เติมอาหารแล้ว" ?></td>
+                        <td class="text-center">
+                            <?php
+
+                                if($row->pH > 7 ){
+                                    echo "เบสหรือด่าง";
+                                }elseif($row->pH == 7){
+                                    echo "เป็นกลาง";
+                                }else{
+                                    echo "กรด";
+                                }
+
+                            ?>
+                        </td>
+                        <td class="text-center">
+                            <?php echo $timeStart_reserv ?>
+                        </td>
+                    </tr>
+
+                <?php
+                endforeach;
                 ?>
             </tbody>
         </table>
