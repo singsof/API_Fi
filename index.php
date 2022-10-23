@@ -100,7 +100,7 @@ include("./config/connectdb.php");
                 ?>
                     <tr>
                         <td class="text-center"><?php echo $i_r++ ?></td>
-                        <td class="text-center"><?php echo $row->ir == 0 ? "เติมอาหารแล้ว" : "เติมอาหารแล้ว" ?></td>
+                        <td class="text-center"><?php echo $row->ir?></td>
                         <td class="text-center">
                             <?php
 
