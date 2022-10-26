@@ -38,7 +38,7 @@ include("./config/connectdb.php");
                             DATE_FORMAT(rt.day, '%c') as month ,
                             DATE_FORMAT(rt.day, '%Y') as year, 
                             DATE_FORMAT(rt.day, '%H : %i ') as time
-                        FROM `esp8266` as rt INNER JOIN ir  ON ir.id_ir = rt.id_ir WHERE  rt.day BETWEEN '{$start}' AND '{$end}' ";
+                        FROM `esp8266` as rt INNER JOIN ir  ON ir.id_ir = rt.id_ir   WHERE  rt.day BETWEEN '{$start}' AND '{$end}' ";
     } else {
 
         $sql_search = "SELECT *,
@@ -92,11 +92,18 @@ include("./config/connectdb.php");
                 $thaimonth = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
 
 
+                if(0 == 0):
+
+                endif;
+
+                
                 $i_r = 1;
-                foreach (DB::query($sql_search, PDO::FETCH_OBJ) as $row) :
+                foreach (DB::query($sql_search, PDO::FETCH_OBJ) as $row):
+
+            
                     // $date = 'วันที่ '.$row->Dd.' เดือน'.$thaimonth[$row->month-1].' พ.ศ.'.$row->year+543;
                     $date = '' . $row->Dd . ' ' . $thaimonth[$row->month - 1] . ' ' . (543 + intval($row->year));;
-                    $timeStart_reserv = $date . "</br> " . $row->time . ' น.';
+                    $timeStart_reserv = $date  . $row->time . ' น.    ';
                 ?>
                     <tr>
                         <td class="text-center"><?php echo $i_r++ ?></td>
